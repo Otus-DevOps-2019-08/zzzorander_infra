@@ -33,8 +33,40 @@ reddit-app - сервер с нашим приложением (ruby@puma+mongod
 install_ruby.sh - install ruby
 install_mongodb.sh - install mingodb (3.2.22)
 deploy.sh - deploy testapp
+testapp-startup.sh - testapp deploy script
 
 ## Информация для Тревиса
 testapp_IP = 35.198.167.169
 testapp_port = 9292
 
+# Дополнительные задания
+## startup-script
+Все операции одной командой
+```
+gcloud compute instances create reddit-app \
+--boot-disk-size=10GB \
+--image-family ubuntu-1604-lts \
+--image-project=ubuntu-os-cloud \
+--machine-type=g1-small \
+--tags puma-server \
+--restart-on-failure \
+--zone europe-west1-c \
+--metadata startup-script='#!/bin/sh
+sudo su -
+wget -qO - https://www.mongodb.org/static/pgp/server-3.2.asc | sudo apt-key add -
+cat <<EOF > /etc/apt/sources.list.d/mongodb-org-3.2.list
+deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse
+EOF
+apt update
+apt install -y ruby-full ruby-bundler build-essential mongodb-org
+systemctl start mongod
+systemctl enable mongod
+cd /home/appuser
+git clone -b monolith https://github.com/express42/reddit.git
+cd reddit
+bundle install
+puma -d
+'
+```
+## Создать правило firewall
+`gcloud compute firewall-rules create default-puma-server --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:9292 --source-ranges=0.0.0.0/0 --target-tags=puma-server`

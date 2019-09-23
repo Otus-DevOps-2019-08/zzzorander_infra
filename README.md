@@ -27,16 +27,16 @@ someinternalhost_IP = 10.156.0.4
 
 # cloud-testapp
 ## Итоговая конфигруация:
-reddit-app - сервер с нашим приложением (ruby@puma+mongodb)
+- reddit-app - сервер с нашим приложением (ruby@puma+mongodb)
 
 ## Files
-install_ruby.sh - install ruby
-install_mongodb.sh - install mingodb (3.2.22)
-deploy.sh - deploy testapp
-testapp-startup.sh - testapp deploy script
+- install_ruby.sh - install ruby
+- install_mongodb.sh - install mingodb (3.2.22)
+- deploy.sh - deploy testapp
+- testapp-startup.sh - testapp deploy script
 
 ## Информация для Тревиса
-testapp_IP = 35.198.167.169
+testapp_IP = 35.210.42.191
 testapp_port = 9292
 
 # Дополнительные задания

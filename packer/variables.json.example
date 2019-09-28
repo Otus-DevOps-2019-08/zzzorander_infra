@@ -1,0 +1,6 @@
+{
+    "project_id": "project-123456",
+    "source_image_family": "ubuntu-1604-lts",
+    "ssh_username": "example_user",
+    "machine_type": "f1-micro"
+}

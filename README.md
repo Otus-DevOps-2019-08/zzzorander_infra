@@ -31,7 +31,7 @@ someinternalhost_IP = 10.156.0.4
 
 ## Files
 - install_ruby.sh - install ruby
-- install_mongodb.sh - install mingodb (3.2.22)
+- install_mongodb.sh - install mongodb (3.2.22)
 - deploy.sh - deploy testapp
 - testapp-startup.sh - testapp deploy script
 
@@ -39,8 +39,8 @@ someinternalhost_IP = 10.156.0.4
 testapp_IP = 35.210.42.191
 testapp_port = 9292
 
-# Дополнительные задания
-## startup-script
+## Дополнительные задания
+### startup-script
 Все операции одной командой
 ```
 gcloud compute instances create reddit-app \
@@ -68,5 +68,24 @@ bundle install
 puma -d
 '
 ```
-## Создать правило firewall
+### Создать правило firewall
 `gcloud compute firewall-rules create default-puma-server --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:9292 --source-ranges=0.0.0.0/0 --target-tags=puma-server`
+
+# packer-base
+## Итоговая конфигруация:
+- reddit-app - сервер с нашим приложением (ruby@puma+mongodb)
+
+## Files
+- packer/scripts/install_ruby.sh - ставим ruby и зависимости
+- packer/scripts/install_mongodb.sh - ставим mongodb (3.2.22)
+- packer/files/deploy.sh - ставим testapp
+- packer/files/puma-service.sh - регистрируем puma в systemd
+- config-scripts/create-reddit-vm.sh - разворачиваем в gcp наш сервер из подготовленного образа.
+
+## Краткое описание
+- создан файл-описание для создания базового образа reddit-base
+- создан образ reddit-base
+- добавлены переменные для чувствительных данных, создан .gitignore
+- создан файл-описание для создание "запеченого" образа reddit-full из reddit-base
+- создан образ reddit-full
+- создан скрипт для запуска виртуальной машины с использованием образа reddit-full

@@ -1,6 +1,6 @@
 terraform {
   # Версия terraform
-  required_version = "0.12.9"
+  required_version = "0.12.8"
 }
 
 provider "google" {
@@ -65,4 +65,3 @@ resource "google_compute_firewall" "firewall_puma" {
   # Правило применимо для инстансов с перечисленными тэгами
   target_tags = ["reddit-app"]
 }
-

@@ -89,3 +89,11 @@ puma -d
 - создан файл-описание для создание "запеченого" образа reddit-full из reddit-base
 - создан образ reddit-full
 - создан скрипт для запуска виртуальной машины с использованием образа reddit-full
+
+# terraform-1
+- Описана инфраструктура в `main.tf`
+- Описаны переменные в `variables.tf`
+- Переменным задано значение через `terraform.tfvars`
+- Заданны переменные для "google_compute_instance" "app" "Zone"
+- Все файлы отформатированны командой `terraform fmt`
+- Создан `terraform.tfvars.example`

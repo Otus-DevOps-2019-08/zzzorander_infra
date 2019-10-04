@@ -26,7 +26,7 @@ someinternalhost_IP = 10.156.0.4
 `ssh someinternalhost`
 
 # cloud-testapp
-## Итоговая конфигруация:
+## Итоговая конфигурация:
 - reddit-app - сервер с нашим приложением (ruby@puma+mongodb)
 
 ## Files
@@ -72,7 +72,7 @@ puma -d
 `gcloud compute firewall-rules create default-puma-server --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:9292 --source-ranges=0.0.0.0/0 --target-tags=puma-server`
 
 # packer-base
-## Итоговая конфигруация:
+## Итоговая конфигурация:
 - reddit-app - сервер с нашим приложением (ruby@puma+mongodb)
 
 ## Files
@@ -91,9 +91,48 @@ puma -d
 - создан скрипт для запуска виртуальной машины с использованием образа reddit-full
 
 # terraform-1
+## HW
 - Описана инфраструктура в `main.tf`
 - Описаны переменные в `variables.tf`
 - Переменным задано значение через `terraform.tfvars`
 - Заданны переменные для "google_compute_instance" "app" "Zone"
-- Все файлы отформатированны командой `terraform fmt`
+- Все файлы отформатированы командой `terraform fmt`
 - Создан `terraform.tfvars.example`
+## HW*
+- Добавил ssh ключ `appuser_web` через веб-консоль.
+- Добавлены ключи ssh через разные конструкции:
+```
+resource "google_compute_project_metadata" "ssh-keys" {
+  metadata = {
+  ssh-keys = <<EOF
+    appuser1:${file(var.public_key_path)}
+    appuser2:${file(var.public_key_path)}
+  EOF
+  }
+}
+```
+В итоге ключ `appuser_web` пропал из списка ключей, и вместо него появились два ключа `appuser1` и `appuser2`
+- Далее я использовал следующую конструкцию:
+```
+resource "google_compute_project_metadata_item" "ssh-keys1" {
+  key = "ssh-keys"
+  value = "appuser1:${file(var.public_key_path)}"
+}
+
+resource "google_compute_project_metadata_item" "ssh-keys2" {
+  key = "ssh-keys"
+  value = "appuser2:${file(var.public_key_path)}"
+}
+```
+После применения данной конструкции в веб-консоли остался только ключ `appuser2`
+- Так же попробовал конструкцию:
+```
+resource "google_compute_project_metadata_item" "ssh-keys1" {
+  key = "ssh-keys"
+  value = <<EOF
+    appuser1:${file(var.public_key_path)}
+    appuser2:${file(var.public_key_path)}
+  EOF
+}
+```
+Получил опять два ключа в списке - `appuser1` + `appuser2`

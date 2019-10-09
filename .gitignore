@@ -1,2 +1,7 @@
 packer/variables.json
 todo
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/

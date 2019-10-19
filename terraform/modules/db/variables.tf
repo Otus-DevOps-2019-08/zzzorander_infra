@@ -8,3 +8,10 @@ variable db_disk_image {
   description = "Disk image for reddit db"
   default     = "reddit-db-base"
 }
+variable private_key_path {
+  description = "Path to the private key used for ssh access"
+}
+variable "db_port" {
+  default     = "27017"
+  description = "MongoDB port"
+}

@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "storage-bucket-zedzzorander"
-    prefix  = "prod"
+    bucket = "storage-bucket-zedzzorander"
+    prefix = "prod"
   }
 }

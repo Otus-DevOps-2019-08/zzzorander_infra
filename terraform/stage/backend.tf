@@ -1,6 +1,6 @@
-terraform  {
+terraform {
   backend "gcs" {
-    bucket  = "storage-bucket-zedzzorander"
-    prefix  = "stage"
+    bucket = "storage-bucket-zedzzorander"
+    prefix = "stage"
   }
 }

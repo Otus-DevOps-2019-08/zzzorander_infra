@@ -5,9 +5,9 @@ provider "google" {
 }
 
 module "storage-bucket" {
-  source  = "SweetOps/storage-bucket/google"
-  version = "0.3.0"
-  name = "storage-bucket-zedzzorander"
+  source   = "SweetOps/storage-bucket/google"
+  version  = "0.3.0"
+  name     = "storage-bucket-zedzzorander"
   location = var.region
 }
 

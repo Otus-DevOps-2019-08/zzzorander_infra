@@ -15,6 +15,18 @@ resource "google_compute_instance" "db" {
   metadata = {
     ssh-keys = "appuser:${file(var.public_key_path)}"
   }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo sed -i -e 's/bindIp: 127.0.0.1/bindIp: 0.0.0.0/g' /etc/mongod.conf",
+      "sudo systemctl restart mongod"
+    ]
+  }
+  connection {
+    type        = "ssh"
+    user        = "appuser"
+    private_key = file(var.private_key_path)
+    host        = self.network_interface[0].access_config[0].nat_ip
+  }
 }
 
 resource "google_compute_firewall" "firewall_mongo" {
@@ -22,7 +34,7 @@ resource "google_compute_firewall" "firewall_mongo" {
   network = "default"
   allow {
     protocol = "tcp"
-    ports    = ["27017"]
+    ports    = [var.db_port]
   }
   target_tags = ["reddit-db"]
   source_tags = ["reddit-app"]

@@ -18,5 +18,5 @@ module "db" {
 
 module "vpc" {
   source        = "../modules/vpc"
-  source_ranges = ["5.18.197.146/32"]
+  source_ranges = var.net_source_ranges
 }

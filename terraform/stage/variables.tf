@@ -29,3 +29,8 @@ variable db_disk_image {
   description = "Disk image for reddit db"
   default     = "reddit-db-base"
 }
+
+variable net_source_ranges {
+  default     = ["0.0.0.0/0"]
+  description = "Allowed net sources"
+}

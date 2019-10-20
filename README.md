@@ -156,3 +156,4 @@ resource "google_compute_project_metadata_item" "ssh-keys1" {
 - Прописал переменную окружения в /etc/environment на app (автоматически при развертывании)
 - Переназначил bindIp (0.0.0.0) в mongod.conf
 - Получил непонятную мне проблему - app пишет ошибку соединения с db, хотя я при этом из консоли на app спокойно подключаюсь к db командой `$ mongo $DATABASE_URL` ¯\\\_(ツ)_/¯
+

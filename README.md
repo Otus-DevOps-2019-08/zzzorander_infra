@@ -171,3 +171,4 @@ resource "google_compute_project_metadata_item" "ssh-keys1" {
 
 ## HW*
 - Написал простейший скрипт на python3, который симулирует логику динамического инвентори. 
+

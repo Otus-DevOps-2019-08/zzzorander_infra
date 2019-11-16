@@ -1,6 +1,7 @@
 ---
 - name: Deploy App
   hosts: app
+  become: True
   tasks:
     - name: Fetch the last version of application code
       git:
@@ -16,5 +17,5 @@
       notify: restart puma
 
   handlers:
-  - name: restart puma
-    systemd: name=puma state=restarted
+    - name: restart puma
+      service: name=puma state=restarted

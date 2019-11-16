@@ -1,0 +1,13 @@
+plugin: gcp_compute
+projects:
+  - infra-253211
+zones: 
+  - europe-west3-a
+filters: []
+auth_kind: serviceaccount
+service_account_file: ~/.secrets/zzzorander_infra/Infra-65b20f5abbe5.json
+hostnames:
+  - name
+keyed_groups:
+  - prefix: gcp
+    key: labels

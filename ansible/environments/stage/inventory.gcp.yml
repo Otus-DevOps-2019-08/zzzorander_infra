@@ -1,0 +1,17 @@
+plugin: gcp_compute
+projects:
+  - infra-253211
+zones: 
+  - europe-west3-a
+filters: []
+auth_kind: serviceaccount
+service_account_file: ~/.secrets/zzzorander_infra/Infra-65b20f5abbe5.json
+hostnames:
+  - name
+
+groups:
+  app: "'-app' in name"
+  db: "'-db' in name"
+
+compose:
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP

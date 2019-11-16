@@ -15,19 +15,19 @@ resource "google_compute_instance" "app" {
   metadata = {
     ssh-keys = "appuser:${file(var.public_key_path)}"
   }
-  provisioner "file" {
-    source      = "${path.module}/files/puma.service"
-    destination = "/tmp/puma.service"
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "sudo echo 'DATABASE_URL=\"${var.db_addr}:${var.db_port}\"' | sudo tee -a /etc/environment",
-      "export 'DATABASE_URL=\"${var.db_addr}:${var.db_port}\"'"
-    ]
-  }
-  provisioner "remote-exec" {
-    script = "${path.module}/files/deploy.sh"
-  }
+  # provisioner "file" {
+  #   source      = "${path.module}/files/puma.service"
+  #   destination = "/tmp/puma.service"
+  # }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "sudo echo 'DATABASE_URL=\"${var.db_addr}:${var.db_port}\"' | sudo tee -a /etc/environment",
+  #     "export 'DATABASE_URL=\"${var.db_addr}:${var.db_port}\"'"
+  #   ]
+  # }
+  # provisioner "remote-exec" {
+  #   script = "${path.module}/files/deploy.sh"
+  # }
   connection {
     type        = "ssh"
     user        = "appuser"

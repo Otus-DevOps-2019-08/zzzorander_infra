@@ -15,12 +15,12 @@ resource "google_compute_instance" "db" {
   metadata = {
     ssh-keys = "appuser:${file(var.public_key_path)}"
   }
-  provisioner "remote-exec" {
-    inline = [
-      "sudo sed -i -e 's/bindIp: 127.0.0.1/bindIp: 0.0.0.0/g' /etc/mongod.conf",
-      "sudo systemctl restart mongod"
-    ]
-  }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "sudo sed -i -e 's/bindIp: 127.0.0.1/bindIp: 0.0.0.0/g' /etc/mongod.conf",
+  #     "sudo systemctl restart mongod"
+  #   ]
+  # }
   connection {
     type        = "ssh"
     user        = "appuser"

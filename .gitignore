@@ -1,6 +1,7 @@
 packer/variables.json
 env
 todo
+jdauphant.nginx
 *.tfstate
 *.tfstate.*.backup
 *.tfstate.backup
